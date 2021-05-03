@@ -1,8 +1,16 @@
 # Radio Controller
-TBW
+A simple project that uses HC-12 100mW multi-channel wireless transceiver. The idea is to use this project for controlling tiny UAV's.
+Due to Arduino IDE specifics files from core must be copied/overwriten into controller directory and recipent directory.
+Controller directory contains the transmitter source code.
+The controller project may be uploaded onto Arduino Pro Mini board.
+
+Recipent directory contains the receiver source code.
+Recipent project may be uploaded onto DFRobot Beetle Board. This board is chosen 
+for the reason of size and weight, it's one of the smallest arduino boards out there in the market at the present.
+
 
 # Requirements
-Arduino IDE
+Arduino Pro Mini, DFRobot Beetle Board, Arduino IDE
 
 # License
 Copyright 2021 Arturs Kalnins
