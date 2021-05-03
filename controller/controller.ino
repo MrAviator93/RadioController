@@ -145,11 +145,11 @@ bool receiveMessage()
     // Timeout mechanism
     if ( millis() - startTime >= 10 )
     {
-      break;
+      return false;
     }
 
-    // Delay for 10ms
-    delay( 10 );
+    // Delay for 1ms
+    delay( 1 );
   }
 
   // Read the message
