@@ -1,3 +1,9 @@
+/***********************************************************************
+FILE CONTROLLER.INO CONTAINS CONTROLLER IMPLEMENTATION AND ENTRY POINT
+
+FILE UTMOST REVIEW DONE ON (03.05.2021) BY ARTUR K. 
+***********************************************************************/
+
 #include "CoreDefinitions.hpp"
 
 #include <SoftwareSerial.h>
