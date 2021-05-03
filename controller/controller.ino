@@ -35,23 +35,23 @@ bool receiveMessage();
 void displayControlLevels( const RC::ControllerMsg& msg, bool goodTX, bool goodRX );
 void setupDisplay();
 
+// Global variable definitions
 Adafruit_SSD1306 display( SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET_PIN );
 SoftwareSerial HC12( RADIO_RX_PIN, RADIO_TX_PIN );
 
 void setup() 
 {
-  Serial.write( "Setup" );
   pinMode( RADIO_RX_PIN, INPUT );
   pinMode( RADIO_TX_PIN, OUTPUT ); 
+
   Serial.begin( 9600 ); // Needed only for debug purposes
   HC12.begin( 9600 );
+
   setupDisplay();
 }
 
 void loop()
-{
-  Serial.write( "Update" );
-  
+{ 
   static byte byteBuffer[ sizeof( RC::ControllerMsg ) ];
   static RC::ControllerMsg controlMsg;
 
@@ -62,15 +62,12 @@ void loop()
   memcpy( &byteBuffer, &controlMsg, sizeof( RC::ControllerMsg ) ); 
   
   auto bytesSent = HC12.write( byteBuffer, sizeof( RC::ControllerMsg ) );
-  
   auto rslt = receiveMessage();
-
   displayControlLevels( controlMsg, ( bytesSent == sizeof( RC::ControllerMsg ) ), rslt );
 }
 
 void getControlInput( RC::ControllerMsg& msg )
 {
-   // Serial.println(analogRead(THROTTLE_PIN));
    msg.throttle = analogRead(THROTTLE_PIN);
    msg.yaw = analogRead(YAW_PIN);
    msg.elevator = analogRead(ELEVATOR_PIN);
@@ -93,11 +90,9 @@ void setupDisplay()
 void displayControlLevels( const RC::ControllerMsg& msg, bool goodTX, bool goodRX )
 {
   display.clearDisplay();
-  display.setTextSize(1);             // Normal 1:1 pixel scale
-  display.setTextColor(WHITE);        // Draw white text
-  display.setCursor(0,0);             // Start at top-left corner
-  
-  // display.println(F("Controller Test V1"));
+  display.setTextSize( 1 );             // Normal 1:1 pixel scale
+  display.setTextColor( WHITE );        // Draw white text
+  display.setCursor( 0, 0 );             // Start at top-left corner
   
   display.print( "Throttle: " );
   display.print( map( msg.throttle, 0, 1023, 0, 100 ) );
@@ -118,10 +113,10 @@ void displayControlLevels( const RC::ControllerMsg& msg, bool goodTX, bool goodR
   display.print( map( msg.aileron, 0, 1023, -100.0, 100.0 ) );
   display.print( "%" );
   
-  display.drawLine( display.width() - 32, 2, display.width() - 32, display.height() - 2, WHITE);
+  display.drawLine( display.width() - 32, 2, display.width() - 32, display.height() - 2, WHITE );
 
   display.setCursor( display.width() - 25, 0 ); 
-  //display.setTextColor(BLACK, WHITE); // Draw 'inverse' text
+  //display.setTextColor( BLACK, WHITE ); // Draw 'inverse' coloured text
   display.println( "RX" );
 
   display.setCursor( display.width() - 10, 0 ); 
@@ -130,13 +125,13 @@ void displayControlLevels( const RC::ControllerMsg& msg, bool goodTX, bool goodR
   display.setCursor( display.width() - 25, 10 ); 
   display.println( "TX" );
 
-   display.setCursor( display.width() - 10, 10 ); 
+  display.setCursor( display.width() - 10, 10 ); 
   display.println( ( goodTX ? "C" : "F" ) ); // C refers for connected, F for fail
   
-  //display.setTextSize(2);             // Draw 2X-scale text
-  //display.setTextColor(WHITE);
-  //display.print(F("0x")); 
-  //display.println(0xDEADBEEF, HEX);
+  //display.setTextSize( 2 );             // Draw 2X-scale text
+  //display.setTextColor( WHITE );
+  //display.print( F( "0x" ) ); 
+  //display.println( 0xDEADBEEF, HEX );
 
   display.display();
 }
