@@ -1,5 +1,5 @@
 # Radio Controller
-A simple project that uses HC-12 100mW multi-channel wireless transceiver. The idea is to use this project for controlling tiny UAV's.
+A simple project that uses HC-12 100mW multi-channel wireless transceiver. The idea is to transmit control signals to the UAV board and receive data signals from the UAV.
 Due to Arduino IDE specifics files from core must be copied/overwriten into controller directory and recipent directory.
 Controller directory contains the transmitter source code.
 The controller project may be uploaded onto Arduino Pro Mini board.
